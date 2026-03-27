@@ -56,18 +56,18 @@ def load_results(results_dir: str):
     importance_path = os.path.join(results_dir, "feature_importance.csv")
     if os.path.exists(importance_path):
         importance = pd.read_csv(importance_path)
-        print("\n🔑 TOP PREDICTIVE FEATURES")
+        print("\n TOP PREDICTIVE FEATURES")
         print("-" * 60)
         print(importance.head(10).to_string(index=False))
         plot_feature_importance(importance, results_dir)
     else:
-        print(f"  ⚠ Feature importance not found at {importance_path}")
+        print(f"   Feature importance not found at {importance_path}")
 
     # ── Demand Forecast ──────────────────────────────────────────────────
     forecast_path = os.path.join(results_dir, "monthly_forecast.csv")
     if os.path.exists(forecast_path):
         forecast = pd.read_csv(forecast_path)
-        print("\n📈 DEMAND FORECAST SUMMARY (next 3 months)")
+        print("\n DEMAND FORECAST SUMMARY (next 3 months)")
         print("-" * 60)
         summary = (
             forecast.groupby("MonthOffset")
@@ -80,14 +80,14 @@ def load_results(results_dir: str):
         )
         print(summary.to_string(index=False))
     else:
-        print(f"  ⚠ Forecast not found at {forecast_path}")
+        print(f"   Forecast not found at {forecast_path}")
 
     # ── Model Info ───────────────────────────────────────────────────────
     model_path = os.path.join(results_dir, "demand_model.ubj")
     if os.path.exists(model_path):
         model = xgb.Booster()
         model.load_model(model_path)
-        print(f"\n🤖 Model loaded successfully: {model_path}")
+        print(f"\n Model loaded successfully: {model_path}")
         print(f"   Model attributes: {model.attributes()}")
 
     print("\n" + "=" * 60)
