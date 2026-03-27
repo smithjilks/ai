@@ -38,10 +38,10 @@ MEDICATION_COLS = [
     "metformin", "repaglinide", "nateglinide", "chlorpropamide",
     "glimepiride", "acetohexamide", "glipizide", "glyburide",
     "tolbutamide", "pioglitazone", "rosiglitazone", "acarbose",
-    "miglitol", "troglitazone", "tolazamide", "insulin",
-    "glyburide-metformin", "glipizide-metformin",
-    "glimepiride-pioglitazone", "metformin-rosiglitazone",
-    "metformin-pioglitazone",
+    "miglitol", "troglitazone", "tolazamide", "examide", "citoglipton", "insulin",
+    "glyburide.metformin", "glipizide.metformin",
+    "glimepiride.pioglitazone", "metformin.rosiglitazone",
+    "metformin.pioglitazone",
 ]
 
 NUMERIC_COLS = [
