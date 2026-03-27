@@ -26,13 +26,20 @@ def load_dataset(zip_path: str) -> pd.DataFrame:
     """Load and clean the Online Retail II dataset from a zip file."""
     with zipfile.ZipFile(zip_path, "r") as z:
         xlsx_files = [f for f in z.namelist() if f.endswith(".xlsx")]
-        if not xlsx_files:
-            raise FileNotFoundError("No .xlsx file found in the zip archive")
+        csv_files = [f for f in z.namelist() if f.endswith(".csv")]
 
-        with z.open(xlsx_files[0]) as f:
-            df = pd.read_excel(f, engine="openpyxl")
+        if xlsx_files:
+            with z.open(xlsx_files[0]) as f:
+                df = pd.read_excel(f, engine="openpyxl")
+            data_file = xlsx_files[0]
+        elif csv_files:
+            with z.open(csv_files[0]) as f:
+                df = pd.read_csv(f, encoding="utf-8")
+            data_file = csv_files[0]
+        else:
+            raise FileNotFoundError("No .xlsx or .csv file found in the zip archive")
 
-    print(f"Loaded {len(df)} rows from {xlsx_files[0]}")
+    print(f"Loaded {len(df)} rows from {data_file}")
 
     # Basic cleaning
     df = df.dropna(subset=["Customer ID", "Description"])
