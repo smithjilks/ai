@@ -42,9 +42,9 @@ def load_results(results_dir):
         if len(consortium_auc) > 0 and len(solo_auc) > 0:
             avg_solo = solo_auc.mean()
             improvement = ((consortium_auc[0] - avg_solo) / max(abs(avg_solo), 0.01)) * 100
-            print(f"\n  ✅ Consortium AUC : {consortium_auc[0]:.4f}")
-            print(f"  📉 Avg Solo AUC   : {avg_solo:.4f}")
-            print(f"  📈 Improvement    : {improvement:+.1f}%")
+            print(f"\n  Consortium AUC : {consortium_auc[0]:.4f}")
+            print(f"  Avg Solo AUC   : {avg_solo:.4f}")
+            print(f"  Improvement    : {improvement:+.1f}%")
 
         plot_benchmark(benchmark, results_dir)
     else:
@@ -54,30 +54,30 @@ def load_results(results_dir):
     importance_path = os.path.join(results_dir, "feature_importance.csv")
     if os.path.exists(importance_path):
         importance = pd.read_csv(importance_path)
-        print("\n🔑 TOP PREDICTIVE FEATURES FOR READMISSION")
+        print("\nTOP PREDICTIVE FEATURES FOR READMISSION")
         print("-" * 60)
         print(importance.head(15).to_string(index=False))
         plot_feature_importance(importance, results_dir)
     else:
-        print(f"  ⚠ Feature importance not found at {importance_path}")
+        print(f"   Feature importance not found at {importance_path}")
 
     # ── Risk Distribution ─────────────────────────────────────────────────
     risk_path = os.path.join(results_dir, "risk_distribution.csv")
     if os.path.exists(risk_path):
         risk = pd.read_csv(risk_path)
-        print("\n🏥 PATIENT READMISSION RISK DISTRIBUTION")
+        print("\n PATIENT READMISSION RISK DISTRIBUTION")
         print("-" * 60)
         print(risk.to_string(index=False))
         plot_risk_distribution(risk, results_dir)
     else:
-        print(f"  ⚠ Risk distribution not found at {risk_path}")
+        print(f"  Risk distribution not found at {risk_path}")
 
     # ── Model Info ────────────────────────────────────────────────────────
     model_path = os.path.join(results_dir, "readmission_model.ubj")
     if os.path.exists(model_path):
         model = xgb.Booster()
         model.load_model(model_path)
-        print(f"\n🤖 Model loaded successfully: {model_path}")
+        print(f"\n Model loaded successfully: {model_path}")
         print(f"   Model attributes: {model.attributes()}")
 
     print("\n" + "=" * 60)
